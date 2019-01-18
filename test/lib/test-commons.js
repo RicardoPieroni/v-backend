@@ -36,7 +36,6 @@ testCommons.resetTestDB = () =>
 testCommons.closeTestDB = () => mongoose.disconnect();
 
 testCommons.init = () => {
-    console.log(config.default)
     chai.use(sinonChai);
     chai.should();
     chai.use(chaiAsPromised);
