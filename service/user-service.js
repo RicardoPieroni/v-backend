@@ -1,5 +1,4 @@
-'use strict';
-
+import UserDomain from '../domain/user-domain';
 
 /**
  * Remove the user by id
