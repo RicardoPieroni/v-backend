@@ -104,6 +104,34 @@ paths:
             items:
               $ref: "#/definitions/user"
       x-swagger-router-controller: "user-controller"
+
+  /user/retrieveUsersByFieldName/{fieldName}/{value}:
+    get:
+      operationId: retrieveUsersByFieldName
+      description: |
+        Retrieve user by field name
+      parameters: 
+        - name: fieldName
+          in: path
+          type: string
+          required: true
+          description: the field name
+          format: string
+        - name: value
+          in: path
+          required: true
+          description: the value of query
+          format: string
+          type: string
+      responses:
+        200:
+          description: Successful response
+          schema:
+            title: Users details
+            type: array
+            items:
+              $ref: '#/definitions/user'
+      x-swagger-router-controller: "user-controller"    
   /user/retrieveById/{id}:
     get:
       summary: "Check if server is live"

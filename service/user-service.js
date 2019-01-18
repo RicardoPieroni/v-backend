@@ -20,10 +20,20 @@ exports.retrieveAll = () => {
   return UserDomain.find();
 }
 
+/** 
+  * Retrieve user by field name
+  * 
+  * returns user
+  **/
+exports.retrieveUsersByFieldName = (fieldName, value) => {
+  const query = {};
+  query[fieldName] = { $regex: value};
+  return UserDomain.find(query);
+}
 
 /**
  * Check if server is live
- * Retrieve 'Users' objects 
+ * Retrieve 'User' object
  *
  * id String the user id
  * returns user

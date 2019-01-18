@@ -1,10 +1,10 @@
 'use strict';
 
-var utils = require('../utils/writer.js');
-var Default = require('../service/user-service.js');
+const utils = require('../utils/writer.js');
+const Default = require('../service/user-service.js');
 
 module.exports.removeUser = function removeUser (req, res, next) {
-  var id = req.swagger.params['id'].value;
+  const id = req.swagger.params['id'].value;
   Default.removeUser(id)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -24,8 +24,20 @@ module.exports.retrieveAll = function retrieveAll (req, res, next) {
     });
 };
 
+module.exports.retrieveUsersByFieldName = function retrieveUsersByFieldName (req, res, next) {
+  const fieldName = req.swagger.params['fieldName'].value;
+  const value = req.swagger.params['value'].value;
+  Default.retrieveUsersByFieldName(fieldName, value)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
 module.exports.retrieveById = function retrieveById (req, res, next) {
-  var id = req.swagger.params['id'].value;
+  const id = req.swagger.params['id'].value;
   Default.retrieveById(id)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -36,13 +48,13 @@ module.exports.retrieveById = function retrieveById (req, res, next) {
 };
 
 module.exports.updateUserById = function updateUserById (req, res, next) {
-  var id = req.swagger.params['id'].value;
-  var name = req.swagger.params['name'].value;
-  var username = req.swagger.params['username'].value;
-  var city = req.swagger.params['city'].value;
-  var email = req.swagger.params['email'].value;
-  var rideInGroup = req.swagger.params['rideInGroup'].value;
-  var daysWeek = req.swagger.params['daysWeek'].value;
+  const id = req.swagger.params['id'].value;
+  const name = req.swagger.params['name'].value;
+  const username = req.swagger.params['username'].value;
+  const city = req.swagger.params['city'].value;
+  const email = req.swagger.params['email'].value;
+  const rideInGroup = req.swagger.params['rideInGroup'].value;
+  const daysWeek = req.swagger.params['daysWeek'].value;
   Default.updateUserById(id,name,username,city,email,rideInGroup,daysWeek)
     .then(function (response) {
       utils.writeJson(res, response);

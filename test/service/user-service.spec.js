@@ -89,4 +89,56 @@ describe('user-service', () => {
         specify(() => resultData[0].name.should.be.equals(user2.name));
         after(() => testCommons.closeTestDB())
     });
+    context('retrieveUsersByFieldName when exist two register in database - retrieve by name', () => {
+        let resultData = 2;
+        const name = 'Test user 1';
+        const name2 = 'Test user 2';
+        const name3 = 'Test';
+
+        const user = userFactory.build();
+        user.name = name;
+        const user2 = userFactory.build();
+        user2.name = name2;
+        const user3 = userFactory.build();
+        user3.name = name3;
+
+        before(() => testCommons.resetTestDB()
+            .then(() => UserDomain.create([user, user2, user3]))
+            .then(() => userService.retrieveUsersByFieldName('name', 'user'))
+            .then((result) => {
+                resultData = result;
+                return resultData;
+            })
+        )
+        specify(() => resultData.length.should.be.equals(2));
+        specify(() => resultData[0].name.should.be.equals(user.name));
+        specify(() => resultData[1].name.should.be.equals(user2.name));
+        after(() => testCommons.closeTestDB())
+    });
+    context('retrieveUsersByFieldName when exist two register in database - retrieve by username', () => {
+        let resultData = 2;
+        const username = 'Test user 1';
+        const username2 = 'Test user 2';
+        const username3 = 'Test';
+
+        const user = userFactory.build();
+        user.username = username;
+        const user2 = userFactory.build();
+        user2.username = username2;
+        const user3 = userFactory.build();
+        user3.username = username3;
+
+        before(() => testCommons.resetTestDB()
+            .then(() => UserDomain.create([user, user2, user3]))
+            .then(() => userService.retrieveUsersByFieldName('username', 'user'))
+            .then((result) => {
+                resultData = result;
+                return resultData;
+            })
+        )
+        specify(() => resultData.length.should.be.equals(2));
+        specify(() => resultData[0].username.should.be.equals(user.username));
+        specify(() => resultData[1].username.should.be.equals(user2.username));
+        after(() => testCommons.closeTestDB())
+    });
 });
