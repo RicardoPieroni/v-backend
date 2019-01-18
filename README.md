@@ -9,6 +9,12 @@ To run the server, run:
 ```
 npm start
 ```
+### Running the test
+To run the unit tests, run:
+
+```
+npm test
+```
 
 To view the Swagger UI interface:
 

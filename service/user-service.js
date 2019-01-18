@@ -7,9 +7,7 @@ import UserDomain from '../domain/user-domain';
  * no response value expected for this operation
  **/
 exports.removeUser = function(id) {
-  return new Promise(function(resolve, reject) {
-    resolve();
-  });
+  return UserDomain.deleteOne({_id: id});
 }
 
 
@@ -18,36 +16,8 @@ exports.removeUser = function(id) {
  *
  * returns List
  **/
-exports.retrieveAll = function() {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = [ {
-  "photosCount" : 6,
-  "rideInGroup" : "always",
-  "daysWeek" : [ "saturday", "saturday" ],
-  "albunsCount" : 1,
-  "city" : "city",
-  "postsCount" : 0,
-  "name" : "name",
-  "email" : "email",
-  "username" : "username"
-}, {
-  "photosCount" : 6,
-  "rideInGroup" : "always",
-  "daysWeek" : [ "saturday", "saturday" ],
-  "albunsCount" : 1,
-  "city" : "city",
-  "postsCount" : 0,
-  "name" : "name",
-  "email" : "email",
-  "username" : "username"
-} ];
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
+exports.retrieveAll = () => {
+  return UserDomain.find();
 }
 
 
@@ -58,26 +28,8 @@ exports.retrieveAll = function() {
  * id String the user id
  * returns user
  **/
-exports.retrieveById = function(id) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "photosCount" : 6,
-  "rideInGroup" : "always",
-  "daysWeek" : [ "saturday", "saturday" ],
-  "albunsCount" : 1,
-  "city" : "city",
-  "postsCount" : 0,
-  "name" : "name",
-  "email" : "email",
-  "username" : "username"
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
+exports.retrieveById = (id) => {
+  return UserDomain.findOne({ _id: id });
 }
 
 
@@ -94,8 +46,14 @@ exports.retrieveById = function(id) {
  * no response value expected for this operation
  **/
 exports.updateUserById = function(id,name,username,city,email,rideInGroup,daysWeek) {
-  return new Promise(function(resolve, reject) {
-    resolve();
-  });
+  const userData = {
+    name,
+    username,
+    city,
+    email,
+    rideInGroup,
+    daysWeek
+  }
+  return UserDomain.updateOne({_id: id}, { $set: userData });
 }
 
