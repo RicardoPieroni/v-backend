@@ -1,0 +1,171 @@
+---
+swagger: "2.0"
+info:
+  description: "This service manage the users"
+  version: "0.1.0"
+  title: "v-backend"
+  termsOfService: "terms"
+  contact:
+    name: "ricardo pieroni costa"
+    url: "https://github.com/RicardoPieroni"
+    email: "ricardo_pieronicosta@hotmail.com"
+  license:
+    name: "MIT"
+    url: "http://opensource.org/licenses/MIT"
+host: "localhost:3006"
+basePath: "/"
+schemes:
+- "http"
+- "https"
+consumes:
+- "application/json"
+- "application/x-www-form-urlencoded"
+- "multipart/form-data"
+produces:
+- "application/json"
+paths:
+  /user/delete/{id}:
+    delete:
+      description: "Remove the user by id"
+      operationId: "removeUser"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "The user id."
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Successful response"
+      x-swagger-router-controller: "user-controller"
+  /user/update/{id}:
+    post:
+      description: "update the user by id"
+      operationId: "updateUserById"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "The user id."
+        required: true
+        type: "string"
+      - name: "name"
+        in: "formData"
+        description: "Updated value of name"
+        required: true
+        type: "string"
+        format: "string"
+      - name: "username"
+        in: "formData"
+        description: "Updated value of username"
+        required: true
+        type: "string"
+        format: "string"
+      - name: "city"
+        in: "formData"
+        description: "Updated value of city"
+        required: false
+        type: "string"
+        format: "string"
+      - name: "email"
+        in: "formData"
+        description: "Updated value of email"
+        required: false
+        type: "string"
+        format: "string"
+      - name: "rideInGroup"
+        in: "formData"
+        description: "Updated value of ride in group"
+        required: false
+        type: "string"
+        format: "string"
+      - name: "daysWeek"
+        in: "formData"
+        description: "Array of days of week"
+        required: false
+        type: "array"
+        items:
+          type: "string"
+        collectionFormat: "multi"
+      responses:
+        200:
+          description: "Successful repsonse"
+      x-swagger-router-controller: "user-controller"
+  /user/retrieveAll:
+    get:
+      description: "retrieve all users"
+      operationId: "retrieveAll"
+      parameters: []
+      responses:
+        200:
+          description: "Successful response"
+          schema:
+            title: "Users details"
+            type: "array"
+            items:
+              $ref: "#/definitions/user"
+      x-swagger-router-controller: "user-controller"
+  /user/retrieveById/{id}:
+    get:
+      summary: "Check if server is live"
+      description: "Retrieve 'Users' objects\n"
+      operationId: "retrieveById"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "the user id"
+        required: true
+        type: "string"
+        format: "string"
+      responses:
+        200:
+          description: "Successful response"
+          schema:
+            $ref: "#/definitions/user"
+      x-swagger-router-controller: "user-controller"
+definitions:
+  user:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        format: "string"
+      username:
+        type: "string"
+        format: "string"
+      city:
+        type: "string"
+        format: "string"
+      email:
+        type: "string"
+        format: "string"
+      rideInGroup:
+        type: "string"
+        format: "string"
+        example: "always"
+      daysWeek:
+        type: "array"
+        items:
+          type: "string"
+          format: "string"
+          example: "saturday"
+      postsCount:
+        type: "integer"
+        format: "int64"
+      photosCount:
+        type: "integer"
+        format: "int64"
+      albunsCount:
+        type: "integer"
+        format: "int64"
+    example:
+      photosCount: 6
+      rideInGroup: "always"
+      daysWeek:
+      - "saturday"
+      - "saturday"
+      albunsCount: 1
+      city: "city"
+      postsCount: 0
+      name: "name"
+      email: "email"
+      username: "username"
