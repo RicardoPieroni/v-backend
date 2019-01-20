@@ -38,6 +38,48 @@ paths:
         200:
           description: "Successful response"
       x-swagger-router-controller: "user-controller"
+  /user/create:
+    post:
+      operationId: create
+      description: create new user
+      parameters:
+        - name: name
+          in: formData
+          required: true
+          type: string
+          format: string
+          description: Value of name
+        - name: username
+          in: formData
+          required: true
+          type: string
+          format: string
+          description:  Value of username
+        - name: city
+          in: formData
+          type: string
+          format: string
+          description:  Value of city
+        - name: email
+          in: formData
+          type: string
+          format: string
+          description:  Value of email
+        - name: rideInGroup
+          in: formData
+          type: string
+          format: string
+          description: Value of ride in group
+        - name: daysWeek
+          in: formData
+          description: Array of days of week
+          type: array
+          items:
+            type: string
+      responses:
+        200:
+          description: Successful response
+      x-swagger-router-controller: "user-controller"
   /user/update/{id}:
     post:
       description: "update the user by id"

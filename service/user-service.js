@@ -68,3 +68,26 @@ exports.updateUserById = function(id,name,username,city,email,rideInGroup,daysWe
   return UserDomain.updateOne({_id: new ObjectID(id)}, { $set: userData });
 }
 
+/**
+ * update the user by id
+ *
+ * name String value of name
+ * username String value of username
+ * city String value of city (optional)
+ * email String value of email (optional)
+ * rideInGroup String value of ride in group (optional)
+ * daysWeek List Array of days of week (optional)
+ * no response value expected for this operation
+ **/
+exports.create = function(name,username,city,email,rideInGroup,daysWeek) {
+  const userData = {
+    name,
+    username,
+    city,
+    email,
+    rideInGroup,
+    daysWeek
+  }
+  return UserDomain.create(userData);
+}
+

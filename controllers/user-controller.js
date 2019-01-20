@@ -47,6 +47,22 @@ module.exports.retrieveById = function retrieveById (req, res, next) {
     });
 };
 
+module.exports.create = function create (req, res, next) {
+  const name = req.swagger.params['name'].value;
+  const username = req.swagger.params['username'].value;
+  const city = req.swagger.params['city'].value;
+  const email = req.swagger.params['email'].value;
+  const rideInGroup = req.swagger.params['rideInGroup'].value;
+  const daysWeek = req.swagger.params['daysWeek'].value;
+  UserService.create(name,username,city,email,rideInGroup,daysWeek)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
 module.exports.updateUserById = function updateUserById (req, res, next) {
   const id = req.swagger.params['id'].value;
   const name = req.swagger.params['name'].value;

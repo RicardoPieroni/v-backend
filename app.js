@@ -26,7 +26,6 @@ const swaggerDoc = jsyaml.safeLoad(spec);
 
 function initilizeMongoose(callback) {
   mongoose.Promise = Promise;
-  console.log(config)
   return mongoose.connect(config.mongo.uri).then(() => {
       Object.keys(config.mongo.options).forEach((key) => {
           mongoose.set(key, config.mongo.options[key]);
