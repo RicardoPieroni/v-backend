@@ -8,6 +8,10 @@ const config = {
             useMongoClient: true,
         },
     },
+    express:{
+        accessControlUrl: process.env.ACCESS_CONTROL_URL,
+        accessControlHeaders: process.env.ACCESS_CONTROL_HEADERS,
+    },
 }
 
 module.exports = config;

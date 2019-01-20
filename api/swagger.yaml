@@ -21,11 +21,12 @@ consumes:
 - "application/json"
 - "application/x-www-form-urlencoded"
 - "multipart/form-data"
+- "application/octet-stream"
 produces:
 - "application/json"
 paths:
   /user/delete/{id}:
-    delete:
+    post:
       description: "Remove the user by id"
       operationId: "removeUser"
       parameters:
