@@ -1,11 +1,11 @@
 'use strict';
 
 const utils = require('../utils/writer.js');
-const Default = require('../service/user-service.js');
+const UserService = require('../service/user-service.js');
 
 module.exports.removeUser = function removeUser (req, res, next) {
   const id = req.swagger.params['id'].value;
-  Default.removeUser(id)
+  UserService.removeUser(id)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -15,7 +15,7 @@ module.exports.removeUser = function removeUser (req, res, next) {
 };
 
 module.exports.retrieveAll = function retrieveAll (req, res, next) {
-  Default.retrieveAll()
+  UserService.retrieveAll()
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -27,7 +27,7 @@ module.exports.retrieveAll = function retrieveAll (req, res, next) {
 module.exports.retrieveUsersByFieldName = function retrieveUsersByFieldName (req, res, next) {
   const fieldName = req.swagger.params['fieldName'].value;
   const value = req.swagger.params['value'].value;
-  Default.retrieveUsersByFieldName(fieldName, value)
+  UserService.retrieveUsersByFieldName(fieldName, value)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -38,7 +38,7 @@ module.exports.retrieveUsersByFieldName = function retrieveUsersByFieldName (req
 
 module.exports.retrieveById = function retrieveById (req, res, next) {
   const id = req.swagger.params['id'].value;
-  Default.retrieveById(id)
+  UserService.retrieveById(id)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -55,7 +55,7 @@ module.exports.updateUserById = function updateUserById (req, res, next) {
   const email = req.swagger.params['email'].value;
   const rideInGroup = req.swagger.params['rideInGroup'].value;
   const daysWeek = req.swagger.params['daysWeek'].value;
-  Default.updateUserById(id,name,username,city,email,rideInGroup,daysWeek)
+  UserService.updateUserById(id,name,username,city,email,rideInGroup,daysWeek)
     .then(function (response) {
       utils.writeJson(res, response);
     })

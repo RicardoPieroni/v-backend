@@ -15,9 +15,6 @@ const userFactory = new Factory()
             return 'Never';
         },
         daysWeek: () => [chanceInstance.weekday(), chanceInstance.weekday() ],
-        postsCount: () => chanceInstance.integer({ min: 0, max: 40 }),
-        albunsCount: () => chanceInstance.integer({ min: 0, max: 15 }),
-        photosCount: () => chanceInstance.integer({ min: 0, max: 600 }) 
     }).attr('userId', ['_id'], _id => _id);
 
 export default userFactory;

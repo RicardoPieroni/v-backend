@@ -1,4 +1,5 @@
 import UserDomain from '../domain/user-domain';
+import { ObjectID } from 'mongodb';
 
 /**
  * Remove the user by id
@@ -7,7 +8,7 @@ import UserDomain from '../domain/user-domain';
  * no response value expected for this operation
  **/
 exports.removeUser = function(id) {
-  return UserDomain.deleteOne({_id: id});
+  return UserDomain.deleteOne({_id: new ObjectID(id)});
 }
 
 
@@ -39,7 +40,7 @@ exports.retrieveUsersByFieldName = (fieldName, value) => {
  * returns user
  **/
 exports.retrieveById = (id) => {
-  return UserDomain.findOne({ _id: id });
+  return UserDomain.findOne({ _id: new ObjectID(id) });
 }
 
 
@@ -64,6 +65,6 @@ exports.updateUserById = function(id,name,username,city,email,rideInGroup,daysWe
     rideInGroup,
     daysWeek
   }
-  return UserDomain.updateOne({_id: id}, { $set: userData });
+  return UserDomain.updateOne({_id: new ObjectID(id)}, { $set: userData });
 }
 

@@ -9,6 +9,7 @@ const swaggerTools = require('swagger-tools');
 const jsyaml = require('js-yaml');
 const serverPort = 3006;
 const mongoose = require('mongoose');
+const config = require('./config');
 
 
 // swaggerRouter configuration
@@ -25,8 +26,8 @@ const swaggerDoc = jsyaml.safeLoad(spec);
 
 function initilizeMongoose(callback) {
   mongoose.Promise = Promise;
-  logger.info('Connecting Mongo DB: %s', config.mongo.uri);
-  return mongoose.connect(config.mongo.uri, config.mongo.options).then(() => {
+  console.log(config)
+  return mongoose.connect(config.mongo.uri).then(() => {
       Object.keys(config.mongo.options).forEach((key) => {
           mongoose.set(key, config.mongo.options[key]);
       });
@@ -34,7 +35,6 @@ function initilizeMongoose(callback) {
       mongoose.Types.ObjectId.prototype.view = () => ({ id: this.toString() });
 
       mongoose.connection.on('error', (err) => {
-          logger.error(`MongoDB connection error: ${err}`);
           process.exit(-1);
       });
   }).then(() => {
@@ -45,22 +45,23 @@ function initilizeMongoose(callback) {
 // Initialize the Swagger middleware
 swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
 
-  // Interpret Swagger resources and attach metadata to request - must be first in swagger-tools middleware chain
-  app.use(middleware.swaggerMetadata());
+    initilizeMongoose(() => {
+        // Interpret Swagger resources and attach metadata to request - must be first in swagger-tools middleware chain
+        app.use(middleware.swaggerMetadata());
 
-  // Validate Swagger requests
-  app.use(middleware.swaggerValidator());
+        // Validate Swagger requests
+        app.use(middleware.swaggerValidator());
 
-  // Route validated requests to appropriate controller
-  app.use(middleware.swaggerRouter(options));
+        // Route validated requests to appropriate controller
+        app.use(middleware.swaggerRouter(options));
 
-  // Serve the Swagger documents and Swagger UI
-  app.use(middleware.swaggerUi());
+        // Serve the Swagger documents and Swagger UI
+        app.use(middleware.swaggerUi());
 
-  // Start the server
-  http.createServer(app).listen(serverPort, function () {
-    console.log('Your server is listening on port %d (http://localhost:%d)', serverPort, serverPort);
-    console.log('Swagger-ui is available on http://localhost:%d/docs', serverPort);
-  });
-
+        // Start the server
+        http.createServer(app).listen(serverPort, function () {
+            console.log('Your server is listening on port %d (http://localhost:%d)', serverPort, serverPort);
+            console.log('Swagger-ui is available on http://localhost:%d/docs', serverPort);
+        });
+    });
 });

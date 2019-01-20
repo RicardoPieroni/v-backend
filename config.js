@@ -1,3 +1,5 @@
+import dotenv from 'dotenv-safe';
+dotenv.load();
 
 const config = {
     mongo: {
@@ -8,4 +10,5 @@ const config = {
     },
 }
 
-export default config;
+module.exports = config;
+export default module.exports;
